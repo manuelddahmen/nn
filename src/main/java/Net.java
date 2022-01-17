@@ -49,6 +49,8 @@ public class Net {
     }
     public void train() {
         try {
+
+
             for (int n = 0; n < trainSet.size(); n++) {
                 PixM pixM = PixM.getPixM(ImageIO.read(trainSet.get(n)), RESOLUTION);
                 inputLayer.setInputImage(pixM);

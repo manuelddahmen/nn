@@ -63,4 +63,23 @@ public class Layer {
         return res;
     }
 
+    /***
+     * Not implemented yet
+     * @return
+     */
+    public double error() {
+        return 0.0;
+    }
+    /***
+     * Not implemented yet
+     * @return
+     */
+    public double updateW() {
+        double w1 = 0.0, w2 = 0.0;
+        for(int i=0; i<input.length; i++) {
+            w1 += input[i]*output[i];
+            w2 += input[i]*input[i];
+        }
+        return w1/w2;
+    }
 }
