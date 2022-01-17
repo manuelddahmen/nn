@@ -51,15 +51,15 @@ public class Net {
         try {
             for (int n = 0; n < trainSet.size(); n++) {
                 PixM pixM = PixM.getPixM(ImageIO.read(trainSet.get(n)), RESOLUTION);
+                inputLayer.setInputImage(pixM);
+                double function = inputLayer.function();
                 for (int i = 0; i < inputLayer.getSizeX(); i++) {
-                    double function = inputLayer.function();
                     for(int h=0; h<hiddenLayerList.get(0).getSizeX(); h++) {
                         hiddenLayerList.get(0).getInput()[h] += function; // ??? et le
                     }
                 }
                 for (int i = 0; i < hiddenLayerList.size()-1; i++) {
-                    double function = hiddenLayerList.get(i).function(hiddenLayerList.get(i).getInput(),
-                            hiddenLayerList.get(i).getInput().length);
+                     function = hiddenLayerList.get(i).function();
                     for (int h = 0; h < hiddenLayerList.get(h).getSizeX(); h++) {
                         hiddenLayerList.get(i + 1).getInput()[h] += function;
                     }
@@ -67,8 +67,7 @@ public class Net {
 
                 HiddenLayer hiddenLayerOut = hiddenLayerList.get(hiddenLayerList.size() - 1);
                 OutputLayer outputLayer = outputLayerList.get(0);
-                double function = hiddenLayerOut.function(hiddenLayerOut.getInput(),
-                        hiddenLayerOut.getInput().length);
+                function = hiddenLayerOut.function();
                 for (int h = 0; h < hiddenLayerList.get(h).getSizeX(); h++) {
                     outputLayer.getInput()[h] += function;
                 }

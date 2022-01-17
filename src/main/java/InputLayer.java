@@ -38,12 +38,17 @@ public class InputLayer extends Layer {
     }
     public void process() {
         for (int i = 0; i < layers.size(); i++) {
-                ((Layer)layers.get(i)).function(x, i);
+                ((Layer)layers.get(i)).function();
 
         }
     }
 
-    public double function() {
-        return 0.0;
+    public void setInputImage(PixM pixM) {
+        for(int x=0; x<pixM.getColumns(); x++)
+            for(int y=0; y<pixM.getLines(); y++)
+                for(int c=0; c<pixM.getCompCount(); c++) {
+                    pixM.setCompNo(c);
+                    input[(x+y*pixM.getColumns()* pixM.compCount)+c] = pixM.get(x, y);
+                }
     }
 }

@@ -2,8 +2,8 @@ public class Layer {
     private int sizeX;
     private int sizeY;
     private double [] w;
-    private double [] input;
-    private double [] output;
+    protected double [] input;
+    protected double [] output;
     public Layer(int sizeX) {
         this.sizeX = sizeX;
         w = new double[sizeX];
@@ -51,8 +51,8 @@ public class Layer {
         this.output = output;
     }
 
-    public double function(double [] inputs, int i) {
-        return dot(inputs, w);
+    public double function() {
+        return dot(input, w);
     }
 
     private double dot(double[] inputs, double[] w) {
