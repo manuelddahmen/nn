@@ -1,3 +1,5 @@
+package one.empty3.neunet;
+
 public class Layer {
     private int sizeX;
     private int sizeY;
@@ -81,5 +83,10 @@ public class Layer {
             w2 += input[i]*input[i];
         }
         return w1/w2;
+    }
+
+    public double sigmoid(double [] x, double [] w) {
+        double z = dot(x, w);
+        return 1. / (1. + Math.exp(-z));
     }
 }

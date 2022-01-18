@@ -1,3 +1,5 @@
+package one.empty3.neunet;
+
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.net.URL;

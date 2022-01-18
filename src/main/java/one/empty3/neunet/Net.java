@@ -1,3 +1,5 @@
+package one.empty3.neunet;
+
 import one.empty3.feature.PixM;
 
 import javax.imageio.ImageIO;
@@ -47,6 +49,8 @@ public class Net {
     public void loadModel(File model) {
 
     }
+
+
     public void train() {
         try {
 

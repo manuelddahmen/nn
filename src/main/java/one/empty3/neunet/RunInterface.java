@@ -1,3 +1,5 @@
+package one.empty3.neunet;
+
 import javax.swing.*;
 
 public class RunInterface {

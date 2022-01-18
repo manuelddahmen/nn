@@ -1,3 +1,5 @@
+package one.empty3.neunet;
+
 public class HiddenLayer extends Layer{
     private Dimension dimensionZ;
 
