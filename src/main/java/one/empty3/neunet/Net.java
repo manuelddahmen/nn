@@ -14,6 +14,7 @@ public class Net {
     private InputLayer inputLayer;
     private List<HiddenLayer> hiddenLayerList = new ArrayList<>();
     private List<OutputLayer> outputLayerList = new ArrayList<>();
+    private PredictedResult predictedResult;
 
     public InputLayer getInputLayer() {
         return inputLayer;
@@ -46,6 +47,15 @@ public class Net {
     public void setTrainSet(List<File> trainSet) {
         this.trainSet = trainSet;
     }
+
+    public PredictedResult getPredictedResult() {
+        return predictedResult;
+    }
+
+    public void setPredictedResult(PredictedResult predictedResult) {
+        this.predictedResult = predictedResult;
+    }
+
     public void loadModel(File model) {
 
     }

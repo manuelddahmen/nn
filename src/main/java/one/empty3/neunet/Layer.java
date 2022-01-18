@@ -1,6 +1,7 @@
 package one.empty3.neunet;
 
 public class Layer {
+    private Net network;
     private int sizeX;
     private int sizeY;
     private double [] w;
@@ -70,19 +71,24 @@ public class Layer {
      * @return
      */
     public double error() {
-        return 0.0;
+        double e = 0.0;
+        for(int i=0; i<w.length; i++) {
+            e = e + Math.pow(output[i]-input[i]*w[i], 2);
+
+        }
+        return e;
     }
     /***
      * Not implemented yet
      * @return
      */
-    public double updateW() {
+    public void updateW() {
+        double e = error();
         double w1 = 0.0, w2 = 0.0;
-        for(int i=0; i<input.length; i++) {
-            w1 += input[i]*output[i];
-            w2 += input[i]*input[i];
+        for(int i=0; i<w.length; i++) {
+            w[i] = w[i] + e*(function()-network.getPredictedResult().getOutputValues())*input[i];
         }
-        return w1/w2;
+        return ;
     }
 
     public double sigmoid(double [] x, double [] w) {
