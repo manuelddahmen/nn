@@ -12,6 +12,7 @@ public class Layer implements Comparable{
         w = new double[sizeX];
         input = new double[sizeX];
         output = new double[sizeX];
+        initW(1.0);
     }
 
     public int getSizeX() {
@@ -104,5 +105,11 @@ public class Layer implements Comparable{
                 return 0;
         }
         return -1;
+    }
+
+    public void initW(double random) {
+        for (int i = 0; i < w.length; i++) {
+            w[i] = (Math.random()-0.5)*2;
+        }
     }
 }

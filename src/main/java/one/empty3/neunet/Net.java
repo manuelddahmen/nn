@@ -89,41 +89,47 @@ public class Net {
 
 
     public void train() {
+        int maxIterations = 1000;
+        int t = 0;
         try {
 
             double error = 0.0;
-            for (int n = 0; n < trainSet.size(); n++) {
-                PixM pixM = PixM.getPixM(ImageIO.read(trainSet.get(n)), RESOLUTION);
-                inputLayer.setInputImage(pixM);
-                double function = inputLayer.function();
-                error += inputLayer.error();
-                inputLayer.updateW();
-                for (int i = 0; i < inputLayer.getSizeX(); i++) {
-                    for(int h=0; h<hiddenLayerList.get(0).getSizeX(); h++) {
-                        hiddenLayerList.get(0).getInput()[h] += function; // ??? et le
-                    }
-                }
-                error += hiddenLayerList.get(0).error();
-                hiddenLayerList.get(0).updateW();
-                for (int i = 1; i < hiddenLayerList.size()-1; i++) {
-                     function = hiddenLayerList.get(i).function();
-                    for (int h = 0; h < hiddenLayerList.get(h).getSizeX(); h++) {
-                        hiddenLayerList.get(i + 1).getInput()[h] += function;
-                    }
-                    error += hiddenLayerList.get(i).error();
-                    hiddenLayerList.get(i).updateW();
-                }
 
-                HiddenLayer hiddenLayerOut = hiddenLayerList.get(hiddenLayerList.size() - 1);
-                OutputLayer outputLayer = outputLayerList.get(0);
-                function = hiddenLayerOut.function();
-                error += outputLayerList.get(0).error();
-                hiddenLayerList.get(0).updateW();
-                for (int h = 1; h < hiddenLayerList.get(h).getSizeX(); h++) {
-                    outputLayer.getInput()[h] += function;
-                }
+            while (error > 1000 && t < maxIterations) {
+                for (int n = 0; n < trainSet.size(); n++) {
+                    PixM pixM = PixM.getPixM(ImageIO.read(trainSet.get(n)), RESOLUTION);
+                    inputLayer.setInputImage(pixM);
+                    double function = inputLayer.function();
+                    error += inputLayer.error();
+                    inputLayer.updateW();
+                    for (int i = 0; i < inputLayer.getSizeX(); i++) {
+                        for (int h = 0; h < hiddenLayerList.get(0).getSizeX(); h++) {
+                            hiddenLayerList.get(0).getInput()[h] += function; // ??? et le
+                        }
+                    }
+                    error += hiddenLayerList.get(0).error();
+                    hiddenLayerList.get(0).updateW();
+                    for (int i = 1; i < hiddenLayerList.size() - 1; i++) {
+                        function = hiddenLayerList.get(i).function();
+                        for (int h = 0; h < hiddenLayerList.get(h).getSizeX(); h++) {
+                            hiddenLayerList.get(i + 1).getInput()[h] += function;
+                        }
+                        error += hiddenLayerList.get(i).error();
+                        hiddenLayerList.get(i).updateW();
+                    }
+
+                    HiddenLayer hiddenLayerOut = hiddenLayerList.get(hiddenLayerList.size() - 1);
+                    OutputLayer outputLayer = outputLayerList.get(0);
+                    function = hiddenLayerOut.function();
+                    error += outputLayerList.get(0).error();
+                    hiddenLayerList.get(0).updateW();
+                    for (int h = 1; h < hiddenLayerList.get(h).getSizeX(); h++) {
+                        outputLayer.getInput()[h] += function;
+                    }
 
                 }
+                t++;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
