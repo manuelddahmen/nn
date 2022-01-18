@@ -1,6 +1,6 @@
 package one.empty3.neunet;
 
-public class Layer {
+public class Layer implements Comparable{
     private Net network;
     private int sizeX;
     private int sizeY;
@@ -94,5 +94,15 @@ public class Layer {
     public double sigmoid(double [] x, double [] w) {
         double z = dot(x, w);
         return 1. / (1. + Math.exp(-z));
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if(o instanceof Layer && o.getClass().equals(getClass())) {
+            Layer o1 = (Layer) o;
+            if(o1.w.equals(w))
+                return 0;
+        }
+        return -1;
     }
 }

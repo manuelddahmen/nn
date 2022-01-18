@@ -6,15 +6,26 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 public class Net {
-    private static final double RESOLUTION = 14;
-    private List<File> trainSet = new ArrayList<>();
+    private static double RESOLUTION = 14;
+    private List<File> trainSet;
     private InputLayer inputLayer;
-    private List<HiddenLayer> hiddenLayerList = new ArrayList<>();
-    private List<OutputLayer> outputLayerList = new ArrayList<>();
+    private List<HiddenLayer> hiddenLayerList;
+    private List<OutputLayer> outputLayerList;
     private PredictedResult predictedResult;
+    private TreeMap<Layer, Layer> layersOrder;
+
+    public Net() {
+        layersOrder = new TreeMap<>();
+        outputLayerList = new ArrayList<>();
+        hiddenLayerList = new ArrayList<>();
+        trainSet = new ArrayList<>();
+        RESOLUTION = 14;
+    }
 
     public InputLayer getInputLayer() {
         return inputLayer;
@@ -56,6 +67,22 @@ public class Net {
         this.predictedResult = predictedResult;
     }
 
+    public static double getRESOLUTION() {
+        return RESOLUTION;
+    }
+
+    public static void setRESOLUTION(double RESOLUTION) {
+        Net.RESOLUTION = RESOLUTION;
+    }
+
+    public TreeMap<Layer, Layer> getLayersOrder() {
+        return layersOrder;
+    }
+
+    public void setLayersOrder(TreeMap<Layer, Layer> layersOrder) {
+        this.layersOrder = layersOrder;
+    }
+
     public void loadModel(File model) {
 
     }
@@ -64,27 +91,35 @@ public class Net {
     public void train() {
         try {
 
-
+            double error = 0.0;
             for (int n = 0; n < trainSet.size(); n++) {
                 PixM pixM = PixM.getPixM(ImageIO.read(trainSet.get(n)), RESOLUTION);
                 inputLayer.setInputImage(pixM);
                 double function = inputLayer.function();
+                error += inputLayer.error();
+                inputLayer.updateW();
                 for (int i = 0; i < inputLayer.getSizeX(); i++) {
                     for(int h=0; h<hiddenLayerList.get(0).getSizeX(); h++) {
                         hiddenLayerList.get(0).getInput()[h] += function; // ??? et le
                     }
                 }
-                for (int i = 0; i < hiddenLayerList.size()-1; i++) {
+                error += hiddenLayerList.get(0).error();
+                hiddenLayerList.get(0).updateW();
+                for (int i = 1; i < hiddenLayerList.size()-1; i++) {
                      function = hiddenLayerList.get(i).function();
                     for (int h = 0; h < hiddenLayerList.get(h).getSizeX(); h++) {
                         hiddenLayerList.get(i + 1).getInput()[h] += function;
                     }
+                    error += hiddenLayerList.get(i).error();
+                    hiddenLayerList.get(i).updateW();
                 }
 
                 HiddenLayer hiddenLayerOut = hiddenLayerList.get(hiddenLayerList.size() - 1);
                 OutputLayer outputLayer = outputLayerList.get(0);
                 function = hiddenLayerOut.function();
-                for (int h = 0; h < hiddenLayerList.get(h).getSizeX(); h++) {
+                error += outputLayerList.get(0).error();
+                hiddenLayerList.get(0).updateW();
+                for (int h = 1; h < hiddenLayerList.get(h).getSizeX(); h++) {
                     outputLayer.getInput()[h] += function;
                 }
 
