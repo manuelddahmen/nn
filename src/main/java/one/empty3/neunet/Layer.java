@@ -4,6 +4,7 @@ public class Layer implements Comparable{
     private Net network;
     private int sizeX;
     private int sizeY;
+    private int comps;
     private double [] w;
     protected double [] input;
     protected double [] output;
@@ -55,11 +56,28 @@ public class Layer implements Comparable{
         this.output = output;
     }
 
+    public Net getNetwork() {
+        return network;
+    }
+
+    public void setNetwork(Net network) {
+        this.network = network;
+    }
+
+    public int getComps() {
+        return comps;
+    }
+
+    public void setComps(int comps) {
+        this.comps = comps;
+    }
+
     public double function() {
         return dot(input, w);
     }
 
     private double dot(double[] inputs, double[] w) {
+        // Check colors components
         double res = 0.0;
         for (int i = 0; i < w.length; i++) {
             res += inputs[i]*w[i];
