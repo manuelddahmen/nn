@@ -1,5 +1,7 @@
 package one.empty3.neunet;
 
+import one.empty3.library.Point3D;
+
 public class Layer implements Comparable{
     private Net network;
     private int sizeX;
@@ -8,11 +10,11 @@ public class Layer implements Comparable{
     private double [] w;
     protected double [] input;
     protected double [] output;
-    public Layer(int sizeX) {
+    public Layer(int sizeX, int sizeY) {
         this.sizeX = sizeX;
-        w = new double[sizeX];
-        input = new double[sizeX];
-        output = new double[sizeX];
+        w = new double[sizeX*sizeY*comps];
+        input = new double[sizeX*sizeY*comps];
+        output = new double[sizeX*sizeY*comps];
         initW(1.0);
     }
 
@@ -129,5 +131,14 @@ public class Layer implements Comparable{
         for (int i = 0; i < w.length; i++) {
             w[i] = (Math.random()-0.5)*2;
         }
+    }
+
+    public int ordPix(int x, int y, int comp) {
+        return comp*sizeX*sizeY+sizeX*y+x;
+    }
+
+    public Point3D getPixelColorComponents(int i, int j) {
+        return new Point3D(input[ordPix(i,j,0)],
+                input[ordPix(i,j,1)],input[ordPix(i,j,2)]);
     }
 }
