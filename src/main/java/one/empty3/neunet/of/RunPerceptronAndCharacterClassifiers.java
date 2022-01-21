@@ -14,14 +14,15 @@ import java.util.Objects;
 public class RunPerceptronAndCharacterClassifiers {
     private static HashMap<String, String> options;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        int res = 14;
         options = new HashMap<>();
         for (String s : args) {
             String option;
             String value;
             if (s != null) {
                 String[] split = s.split("=");
-                if (split[0] != null && split[1] != null) {
+                if (split.length==2 && split[0] != null && split[1] != null) {
                     option = split[0].substring(2);
                     value = split[1];
                     options.put(option, value);
@@ -34,10 +35,10 @@ public class RunPerceptronAndCharacterClassifiers {
                 System.out.println("New network");
                 for (File image : Objects.requireNonNull(directory.listFiles())) {
                     Net net = new Net();
-                    net.setInputLayer(new InputLayer(14 * 14));
+                    net.setInputLayer(new InputLayer(res , res));
                     if(net.getInputLayer().loadData(image)) {
-                        net.getHiddenLayerList().add(new HiddenLayer(14 * 14));
-                        net.getOutputLayerList().add(new OutputLayer(14 * 14));
+                        net.getHiddenLayerList().add(new HiddenLayer(res , res));
+                        net.getOutputLayerList().add(new OutputLayer(res , res));
                         net.train();
                     }
                 }

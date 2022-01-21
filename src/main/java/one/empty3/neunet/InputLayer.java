@@ -5,6 +5,7 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import one.empty3.feature.PixM;
@@ -14,22 +15,20 @@ public class InputLayer extends Layer {
     private File uri;
     private List<Layer> layers;
 
-    public InputLayer(int sizeX){
-        super(sizeX);
+    public InputLayer(int sizeX, int sizeY){
+        super(sizeX, sizeY);
         layers = new ArrayList<>();
     }
 
-    public boolean loadData(File file) {
+    public boolean loadData(File file) throws Exception {
         PixM p = null;
         try {
             if(ImageIO.getImageReaders(file)==null)
                 return false;
-            try {
-                p = PixM.getPixM(ImageIO.read(file), Config.RES);
-            } catch (IIOException exception) {
-                System.out.println("Error reading image. Returns");
+            if(!Arrays.asList("jpg", "png").contains(file.getAbsolutePath().substring(
+                    file.getAbsolutePath().length()-3, file.getAbsolutePath().length())))
                 return false;
-            }
+            p = PixM.getPixM(ImageIO.read(file), Config.RES);
             this.x = new double[p.getColumns()*p.getLines()];
             for(int j=0; j<p.getLines(); j++)
                 for(int i=0; i<p.getColumns(); i++) {
@@ -40,9 +39,12 @@ public class InputLayer extends Layer {
                 }
             this.uri = file;
             return true;
+        } catch (IIOException exception) {
+            System.out.println("Error reading image. Returns");
+            throw new Exception(exception);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+            }
         return false;
     }
     public void mapTo(Layer layer) {
