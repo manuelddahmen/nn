@@ -95,10 +95,10 @@ public class Net {
 
             double error = 0.0;
 
-            while (error > 1000 && t < maxIterations) {
+            while (t < maxIterations) {
                 for (int n = 0; n < trainSet.size(); n++) {
                     PixM pixM = PixM.getPixM(ImageIO.read(trainSet.get(n)), RESOLUTION);
-                    inputLayer.setInputImage(pixM);
+                    inputLayer.setInputImage(pixM, null);
                     double function = inputLayer.function();
                     error += inputLayer.error();
                     inputLayer.updateW();

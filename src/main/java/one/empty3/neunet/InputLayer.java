@@ -52,7 +52,7 @@ public class InputLayer extends Layer {
         return false;
     }
 
-    public void setInputImage(PixM pixM) {
+    public void setInputImage(PixM pixM, TrainDatasetImage data) {
         for(int x=0; x<Config.RES; x++)
             for(int y=0; y<Config.RES; y++)
                 for(int c=0; c<pixM.getCompCount(); c++) {
