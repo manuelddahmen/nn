@@ -11,7 +11,9 @@ public class Layer implements Comparable{
     protected double [] input;
     protected double [] output;
     public Layer(int sizeX, int sizeY) {
+        comps = 3;
         this.sizeX = sizeX;
+        this.sizeY = sizeY;
         w = new double[sizeX*sizeY*comps];
         input = new double[sizeX*sizeY*comps];
         output = new double[sizeX*sizeY*comps];

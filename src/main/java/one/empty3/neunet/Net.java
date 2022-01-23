@@ -134,4 +134,22 @@ public class Net {
             e.printStackTrace();
         }
     }
+
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < RESOLUTION * RESOLUTION*3; i++) {
+            s.append("\t");
+            s.append("").append(inputLayer.getW()[i]);
+            for (HiddenLayer hiddenLayer : hiddenLayerList) {
+                s.append("\t");
+                s.append("").append(hiddenLayer.getW()[i]);
+            }
+            for (OutputLayer outputLayer : outputLayerList) {
+                s.append("\t");
+                s.append("").append(outputLayer.getW()[i]);
+            }
+            s.append("\n");
+        }
+        return s.toString();
+    }
 }
