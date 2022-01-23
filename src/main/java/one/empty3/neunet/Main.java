@@ -7,10 +7,15 @@ package one.empty3.neunet;
 import javax.swing.*;
 import net.miginfocom.swing.*;
 
+import java.io.File;
+
 /**
  * @author Manuel Dahmen
  */
 public class Main extends JFrame {
+    private File[] files;
+
+
     public Main() {
         initComponents();
     }
@@ -34,6 +39,23 @@ public class Main extends JFrame {
         textField5 = new JTextField();
         label2 = new JLabel();
         label7 = new JLabel();
+        this2 = new JFrame();
+        label8 = new JLabel();
+        button2 = new JButton();
+        textField6 = new JTextField();
+        scrollPane2 = new JScrollPane();
+        table2 = new JTable();
+        panel2 = new JPanel();
+        label9 = new JLabel();
+        textField7 = new JTextField();
+        label10 = new JLabel();
+        textField8 = new JTextField();
+        label11 = new JLabel();
+        textField9 = new JTextField();
+        label12 = new JLabel();
+        textField10 = new JTextField();
+        label13 = new JLabel();
+        label14 = new JLabel();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -108,9 +130,92 @@ public class Main extends JFrame {
         contentPane.add(label7, "cell 0 3");
         pack();
         setLocationRelativeTo(getOwner());
+
+        //======== this2 ========
+        {
+            var this2ContentPane = this2.getContentPane();
+            this2ContentPane.setLayout(new MigLayout(
+                "hidemode 3",
+                // columns
+                "[fill]" +
+                "[fill]",
+                // rows
+                "[]" +
+                "[]" +
+                "[]" +
+                "[]"));
+
+            //---- label8 ----
+            label8.setText("S\u00e9lection du listing CSV(\"\\t,\\n\") id,path,{(coordonn\u00e9es),} {(label)}");
+            this2ContentPane.add(label8, "cell 0 0");
+
+            //---- button2 ----
+            button2.setText("Choisissez le fichier ...");
+            this2ContentPane.add(button2, "cell 1 0");
+            this2ContentPane.add(textField6, "cell 0 1");
+
+            //======== scrollPane2 ========
+            {
+                scrollPane2.setViewportView(table2);
+            }
+            this2ContentPane.add(scrollPane2, "cell 0 2");
+
+            //======== panel2 ========
+            {
+                panel2.setLayout(new MigLayout(
+                    "fill,hidemode 3",
+                    // columns
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]",
+                    // rows
+                    "[]" +
+                    "[]" +
+                    "[]" +
+                    "[]"));
+
+                //---- label9 ----
+                label9.setText("id");
+                panel2.add(label9, "cell 0 0");
+                panel2.add(textField7, "cell 1 0");
+
+                //---- label10 ----
+                label10.setText("path");
+                panel2.add(label10, "cell 0 1");
+                panel2.add(textField8, "cell 1 1");
+
+                //---- label11 ----
+                label11.setText("coordonn\u00e9es");
+                panel2.add(label11, "cell 0 2");
+                panel2.add(textField9, "cell 1 2");
+
+                //---- label12 ----
+                label12.setText("labels");
+                panel2.add(label12, "cell 0 3");
+                panel2.add(textField10, "cell 1 3");
+            }
+            this2ContentPane.add(panel2, "cell 1 2,dock center");
+
+            //---- label13 ----
+            label13.setText("Pr\u00e9c\u00e9dent");
+            this2ContentPane.add(label13, "cell 0 3");
+
+            //---- label14 ----
+            label14.setText("Suivant");
+            this2ContentPane.add(label14, "cell 0 3");
+            this2.pack();
+            this2.setLocationRelativeTo(this2.getOwner());
+        }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
-
+    public void chooseFile() {
+        javax.swing.JFileChooser jFileChooser = new javax.swing.JFileChooser();
+        jFileChooser.setFileSelectionMode(javax.swing.JFileChooser.FILES_AND_DIRECTORIES);
+        jFileChooser.showDialog(null, "Choose file");
+        if (jFileChooser.getSelectedFiles() != null) {
+            this.files = jFileChooser.getSelectedFiles();
+        }
+    }
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner non-commercial license
     private JLabel label1;
@@ -129,6 +234,23 @@ public class Main extends JFrame {
     private JTextField textField5;
     private JLabel label2;
     private JLabel label7;
+    private JFrame this2;
+    private JLabel label8;
+    private JButton button2;
+    private JTextField textField6;
+    private JScrollPane scrollPane2;
+    private JTable table2;
+    private JPanel panel2;
+    private JLabel label9;
+    private JTextField textField7;
+    private JLabel label10;
+    private JTextField textField8;
+    private JLabel label11;
+    private JTextField textField9;
+    private JLabel label12;
+    private JTextField textField10;
+    private JLabel label13;
+    private JLabel label14;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
     public static void main(String [] args) {
         Main main = new Main();
