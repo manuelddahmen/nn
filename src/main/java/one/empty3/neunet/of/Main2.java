@@ -3,6 +3,7 @@ package one.empty3.neunet.of;
 import atlasgen.Action;
 import atlasgen.CsvLine;
 import atlasgen.CsvReader;
+import atlasgen.CsvWriter;
 import one.empty3.neunet.*;
 
 import javax.swing.*;
@@ -79,6 +80,13 @@ public class Main2 {
                     }
                 });
 
+            }
+        });
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CsvWriter writer = new CsvWriter("\n", "\t");
+                writer.openFile(new File(csv));
             }
         });
     }
