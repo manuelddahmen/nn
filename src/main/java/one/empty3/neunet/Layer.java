@@ -105,6 +105,18 @@ public class Layer implements Comparable{
      * Not implemented yet
      * @return
      */
+    public double error(double [] w) {
+        double e = 0.0;
+        for(int i=0; i<w.length; i++) {
+            e = e + Math.pow(output[i]-input[i]*w[i], 2);
+
+        }
+        return e;
+    }
+    /***
+     * Not implemented yet
+     * @return
+     */
     public void updateW() {
         double e = error();
         double w1 = 0.0, w2 = 0.0;

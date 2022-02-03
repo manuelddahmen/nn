@@ -33,7 +33,7 @@ public class Main2 {
     private JButton saveButton;
     private JPanel imagePanel;
     private JButton suivantButton;
-    private JButton précédentButton;
+    private JButton precedentButton;
     private JList listImages;
     private int startIndex = 0;
     private int pageSize = 20;
