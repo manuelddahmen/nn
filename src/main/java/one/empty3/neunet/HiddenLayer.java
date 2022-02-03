@@ -23,5 +23,20 @@ public class HiddenLayer extends Layer{
         }
         return g;
     }
+    public double [] updateDescend(double e, double dw) {
+        double[] wa = getW().clone();
+        double[] g = gradient(dw);
+        for (int i = 0; i < getW().length; i++) {
+            wa[i] = getW()[i] - e*g[i];
+        }
+        return wa;
+    }
 
+    public double [] learn(double dw, double e, double n) {
+        for(int i=0; i<n; i++) {
+            setW(updateDescend(e, dw));
+            System.out.println(error());
+        }
+        return getW();
+    }
 }
