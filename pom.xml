@@ -380,7 +380,7 @@ ED0DB26D5F0BDADD1CB2BC079B7BFF1322EE55E4-->
         <dependency>
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>
-            <version>3.5</version>
+            <version>3.9.0</version>
         </dependency>
     </dependencies>
 
